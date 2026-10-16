@@ -119,4 +119,11 @@ class Vending {
             return 0;
         }
     }
+    String getItemDescription(String name) {
+        if (Stock.containsKey(name)) {
+            return Stock.get(name).getDescription();
+        } else {
+            return null;
+        }
+    }
 }

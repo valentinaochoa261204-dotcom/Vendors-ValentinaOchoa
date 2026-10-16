@@ -65,5 +65,10 @@ public class VendorTest {
         assertEquals(2, vendor.getPurchaseCount("Candy"));
         assertEquals(0, vendor.getStock("Candy"));
     }
+    @Test
+    void itemDescriptionTest(){
+        vendor.addOrRestockItem("Apple", 4.00, 7, "Healthy snack option", "Food");
+        assertEquals("Healthy snack option", vendor.getItemDescription("Apple"));
+    }
 
 }
