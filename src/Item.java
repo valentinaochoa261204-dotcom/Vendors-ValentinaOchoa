@@ -8,7 +8,7 @@ class Item {
     private boolean bestseller;
 
     Item(double price, int numPieces) {
-        this(price, numPieces, "No description available", "General");
+        this(price, numPieces, "No description available", "Snacks");
     }
 
     Item(double price, int numPieces, String description, String category) {
