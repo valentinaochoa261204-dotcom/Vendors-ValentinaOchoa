@@ -89,4 +89,10 @@ public class VendorTest {
         assertEquals(0.45, vendor.getItem("Gum").getPrice());
         assertEquals(3, vendor.getItem("Apples").getPrice());
     }
+    @Test void bestsellerTest() {
+        Vending vendor = new Vending(2, 2);
+        vendor.markBestseller("Candy", true);
+        assertTrue(vendor.getItem("Candy").isBestseller());
+        assertFalse(vendor.getItem("Gum").isBestseller());
+    }
 }

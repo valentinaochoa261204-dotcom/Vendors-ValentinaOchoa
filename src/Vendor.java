@@ -1,6 +1,8 @@
 import org.junit.gen5.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -8,7 +10,7 @@ import java.util.HashMap;
  * well as the current balance of money that has been deposited into the machine.
  */
 class Vending {
-    private static HashMap<String, Item> Stock = new HashMap<String, Item>();
+    private final Map<String, Item> Stock = new HashMap<>();
     private double balance;
 
     Vending(int numCandy, int numGum) {
@@ -146,6 +148,18 @@ class Vending {
             if (item.getCategory().equals(category)) {
                 item.setDiscountPercent(percent);
             }
+        }
+    }
+    void markBestseller(String name, boolean isBestseller) {
+        if (!Stock.containsKey(name)) throw new IllegalArgumentException("Unknown item: " + name);
+        Stock.get(name).setBestseller(isBestseller);
+    }
+    void printInventory() {
+        for (Map.Entry<String, Item> entry : new TreeMap<>(Stock).entrySet()) {
+            Item item = entry.getValue();
+            System.out.printf("%s: stock=%d, price=$%.2f, sold=%d%s%n",
+                    entry.getKey(), item.stock, item.getPrice(), item.getPurchases(),
+                    item.isBestseller() ? " [BESTSELLER]" : "");
         }
     }
 }
