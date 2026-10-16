@@ -95,4 +95,12 @@ public class VendorTest {
         assertTrue(vendor.getItem("Candy").isBestseller());
         assertFalse(vendor.getItem("Gum").isBestseller());
     }
+    @Test void fiveVendorsHaveIndependentInventoriesTest() {
+        Vending[] vendors = new Vending[5];
+        for (int i = 0; i < 5; i++) vendors[i] = new Vending(i + 1, 2);
+        vendors[0].restockItems("Candy", 10);
+        assertEquals(11, vendors[0].getStock("Candy"));
+        assertEquals(2, vendors[1].getStock("Candy"));
+        assertEquals(5, vendors[4].getStock("Candy"));
+    }
 }
