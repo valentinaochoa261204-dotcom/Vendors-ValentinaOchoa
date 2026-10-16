@@ -8,14 +8,15 @@ class Item {
     }
 
     void restock(int amount) {
-        this.stock = this.stock + amount;
+        if (amount <= 0) throw new IllegalArgumentException("Restock amount must be positive");
+        this.stock += amount;
     }
 
     void purchase(int amount) {
         this.stock = this.stock - amount;
     }
+
     double getPrice() {
         return this.price;
     }
-
 }

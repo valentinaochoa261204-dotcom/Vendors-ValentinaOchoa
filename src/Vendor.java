@@ -78,8 +78,10 @@ class Vending {
     void emptyInventory() {
         Stock.clear();
     }
-
-
-    class Examples {
+    //First UserStory
+    void restockItems(String name, int amount) {
+        Item item = Stock.get(name);
+        if (item == null) throw new IllegalArgumentException("Item not found");
+        item.restock(amount);
+        }
     }
-}

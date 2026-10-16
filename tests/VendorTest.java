@@ -25,4 +25,9 @@ public class VendorTest {
         vendor.emptyInventory();
         assertEquals(0, vendor.getInventorySize());
     }
+    @Test
+    void restockingItem(){
+        vendor.restockItems("Candy", 2);
+        assertEquals(4, vendor.getStock("Candy"));
+    }
 }
