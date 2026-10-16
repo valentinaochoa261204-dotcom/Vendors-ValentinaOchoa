@@ -22,6 +22,7 @@ public class VendorTest {
     }
     @Test
     void emptyVendor() {
-
+        vendor.emptyInventory();
+        assertEquals(0, vendor.getInventorySize());
     }
 }

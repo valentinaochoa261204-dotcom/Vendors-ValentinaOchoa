@@ -72,6 +72,13 @@ class Vending {
             return 0;
         }
     }
+    int getInventorySize() {
+        return Stock.size();
+    }
+    void emptyInventory() {
+        Stock.clear();
+    }
+
 
     class Examples {
     }
