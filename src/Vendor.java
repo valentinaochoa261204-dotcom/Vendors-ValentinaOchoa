@@ -6,7 +6,7 @@ import java.util.HashMap;
  * well as the current balance of money that has been deposited into the machine.
  */
 class Vending {
-    private static HashMap<String, Item> Stock = new HashMap<String,Item>();
+    private static HashMap<String, Item> Stock = new HashMap<String, Item>();
     private double balance;
 
     Vending(int numCandy, int numGum) {
@@ -15,45 +15,64 @@ class Vending {
         this.balance = 0;
     }
 
-    /** resets the Balance to 0 */
-    void resetBalance () {
+    /**
+     * resets the Balance to 0
+     */
+    void resetBalance() {
         this.balance = 0;
     }
 
-    /** returns the current balance */
-    double getBalance () {
+    /**
+     * returns the current balance
+     */
+    double getBalance() {
         return this.balance;
     }
 
-    /** adds money to the machine's balance
+    /**
+     * adds money to the machine's balance
+     *
      * @param amt how much money to add
-     * */
-    void addMoney (double amt) {
+     */
+    void addMoney(double amt) {
         if (!Double.isFinite(amt) || amt <= 0) {
             throw new IllegalArgumentException("Amount must be positive and greater than 0");
         }
         this.balance += amt;
     }
-    /** attempt to purchase named item.  Message returned if
+
+    /**
+     * attempt to purchase named item.  Message returned if
      * the balance isn't sufficient to cover the item cost.
      *
      * @param name The name of the item to purchase ("Candy" or "Gum")
      */
-    void select (String name) {
-        if (Stock.containsKey(name)) {
-            Item item = Stock.get(name);
-            if (balance >= item.price) {
-                item.purchase(1);
-                this.balance = this.balance - item.price;
-            }
-            else
-                System.out.println("Gimme more money");
+    boolean select(String name) {
+        Item item = Stock.get(name);
+        if (item == null) {
+            System.out.println("Sorry, item not found");
+            return false;
         }
-        else System.out.println("Sorry, don't know that item");
+        if (item.stock == 0) {
+            System.out.println("Sorry, item out of stock");
+        }
+        if (balance < item.getPrice()) {
+            System.out.println("Sorry, you don't have enough money");
+            return false;
+        }
+        item.purchase(1);
+        this.balance -= item.getPrice();
+        return true;
     }
 
-}
+    int getStock(String name) {
+        if (Stock.containsKey(name)) {
+            return Stock.get(name).stock;
+        } else {
+            return 0;
+        }
+    }
 
-class Examples {
+    class Examples {
+    }
 }
-

@@ -14,4 +14,8 @@ class Item {
     void purchase(int amount) {
         this.stock = this.stock - amount;
     }
+    double getPrice() {
+        return this.price;
+    }
+
 }
