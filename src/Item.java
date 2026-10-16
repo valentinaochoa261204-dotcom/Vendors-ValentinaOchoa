@@ -3,6 +3,7 @@ class Item {
     int stock;
     private String description;
     private String category;
+    private int purchases;
 
     Item(double price, int numPieces) {
         this(price, numPieces, "No description available", "General");
@@ -21,7 +22,9 @@ class Item {
     }
 
     void purchase(int amount) {
-        this.stock = this.stock - amount;
+        if(amount <= 0 || amount > stock) throw new IllegalArgumentException("Insufficient stock or invalid quantity");
+        this.stock -= amount;
+        this.purchases += amount;
     }
 
     double getPrice() {
@@ -32,5 +35,8 @@ class Item {
     }
     String getCategory() {
         return this.category;
+    }
+    int getPurchases() {
+        return this.purchases;
     }
 }

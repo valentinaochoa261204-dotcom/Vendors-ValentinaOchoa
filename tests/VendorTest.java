@@ -57,5 +57,13 @@ public class VendorTest {
         assertEquals(1, vendor.getInventorySize());
         assertFalse(vendor.deleteItem("Gum"));
     }
+    @Test
+    void countPurchasesTest(){
+        vendor.addMoney(5);
+        assertTrue(vendor.select("Candy"));
+        assertTrue(vendor.select("Candy"));
+        assertEquals(2, vendor.getPurchaseCount("Candy"));
+        assertEquals(0, vendor.getStock("Candy"));
+    }
 
 }

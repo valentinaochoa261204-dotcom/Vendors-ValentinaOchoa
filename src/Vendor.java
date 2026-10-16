@@ -112,4 +112,11 @@ class Vending {
     boolean deleteItem(String name) {
         return Stock.remove(name) != null;
     }
+    int getPurchaseCount(String name) {
+        if (Stock.containsKey(name)) {
+            return Stock.get(name).getPurchases();
+        } else {
+            return 0;
+        }
+    }
 }
