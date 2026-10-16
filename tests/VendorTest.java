@@ -57,18 +57,36 @@ public class VendorTest {
         assertEquals(1, vendor.getInventorySize());
         assertFalse(vendor.deleteItem("Gum"));
     }
+
     @Test
-    void countPurchasesTest(){
+    void countPurchasesTest() {
         vendor.addMoney(5);
         assertTrue(vendor.select("Candy"));
         assertTrue(vendor.select("Candy"));
         assertEquals(2, vendor.getPurchaseCount("Candy"));
         assertEquals(0, vendor.getStock("Candy"));
     }
+
     @Test
-    void itemDescriptionTest(){
+    void itemDescriptionTest() {
         vendor.addOrRestockItem("Apple", 4.00, 7, "Healthy snack option", "Food");
         assertEquals("Healthy snack option", vendor.getItemDescription("Apple"));
     }
 
+    @Test
+    void itemDiscountTest() {
+        vendor.applyItemDiscount("Candy", 20);
+        assertEquals(1.00, vendor.getItem("Candy").getPrice());
+        vendor.addMoney(1);
+        assertTrue(vendor.select("Candy"));
+        assertEquals(0, vendor.getBalance());
+    }
+    @Test void categoryDiscountTest() {
+        Vending vendor = new Vending(2, 2);
+        vendor.addOrRestockItem("Apples", 3, 2, "Healthy snack option", "Food");
+        vendor.applyCategoryDiscount("Snacks", 10);
+        assertEquals(1.125, vendor.getItem("Candy").getPrice());
+        assertEquals(0.45, vendor.getItem("Gum").getPrice());
+        assertEquals(3, vendor.getItem("Apples").getPrice());
+    }
 }

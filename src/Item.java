@@ -4,6 +4,8 @@ class Item {
     private String description;
     private String category;
     private int purchases;
+    private double discountPercent;
+    private boolean bestseller;
 
     Item(double price, int numPieces) {
         this(price, numPieces, "No description available", "General");
@@ -28,7 +30,7 @@ class Item {
     }
 
     double getPrice() {
-        return this.price;
+        return this.price * (1 - discountPercent/ 100.0);
     }
     String getDescription() {
         return this.description;
@@ -38,5 +40,18 @@ class Item {
     }
     int getPurchases() {
         return this.purchases;
+    }
+    double getDiscountPercent() {
+        return this.discountPercent;
+    }
+    boolean isBestseller() {
+        return this.bestseller;
+    }
+    void setDiscountPercent(double percent) {
+        if(percent < 0 || percent > 100) throw new IllegalArgumentException("Discount percent must be between 0 and 100");
+        this.discountPercent = percent;
+    }
+    void setBestseller(boolean bestseller) {
+        this.bestseller = bestseller;
     }
 }

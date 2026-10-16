@@ -74,6 +74,7 @@ class Vending {
             return 0;
         }
     }
+
     Item getItem(String name) {
         if (Stock.containsKey(name)) {
             return Stock.get(name);
@@ -84,17 +85,20 @@ class Vending {
     int getInventorySize() {
         return Stock.size();
     }
+
     void emptyInventory() {
         Stock.clear();
     }
+
     //First UserStory: Add stock to an existing product
     void restockItems(String name, int amount) {
         Item item = Stock.get(name);
         if (item == null) throw new IllegalArgumentException("Item not found");
         item.restock(amount);
     }
+
     //Second UserStory: Add a product that is not yet available, or restock an existing product
-    void addOrRestockItem(String name, double price, int amount, String description, String category){
+    void addOrRestockItem(String name, double price, int amount, String description, String category) {
         if (name == null || name.isBlank()) throw new IllegalArgumentException("Name is required");
         if (amount <= 0) throw new IllegalArgumentException("Amount must be positive");
         if (Stock.containsKey(name)) {
@@ -103,15 +107,18 @@ class Vending {
             Stock.put(name, new Item(price, amount, description, category));
         }
     }
+
     boolean renameItem(String oldName, String newName) {
-        if(newName == null || newName.isBlank() || !Stock.containsKey(oldName) || Stock.containsKey(newName))
-                return false;
+        if (newName == null || newName.isBlank() || !Stock.containsKey(oldName) || Stock.containsKey(newName))
+            return false;
         Stock.put(newName, Stock.remove(oldName));
         return true;
     }
+
     boolean deleteItem(String name) {
         return Stock.remove(name) != null;
     }
+
     int getPurchaseCount(String name) {
         if (Stock.containsKey(name)) {
             return Stock.get(name).getPurchases();
@@ -119,11 +126,26 @@ class Vending {
             return 0;
         }
     }
+
     String getItemDescription(String name) {
         if (Stock.containsKey(name)) {
             return Stock.get(name).getDescription();
         } else {
             return null;
+        }
+    }
+
+    void applyItemDiscount(String name, double percent) {
+        if (!Stock.containsKey(name)) throw new IllegalArgumentException("Item not found");
+        Stock.get(name).setDiscountPercent(percent);
+    }
+
+    void applyCategoryDiscount(String category, double percent) {
+        if (percent < 0 || percent > 100) throw new IllegalArgumentException("Percentage must be between 0 and 100");
+        for (Item item : Stock.values()) {
+            if (item.getCategory().equals(category)) {
+                item.setDiscountPercent(percent);
+            }
         }
     }
 }
