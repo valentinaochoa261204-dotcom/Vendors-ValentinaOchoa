@@ -78,10 +78,21 @@ class Vending {
     void emptyInventory() {
         Stock.clear();
     }
-    //First UserStory
+    //First UserStory: Add stock to an existing product
     void restockItems(String name, int amount) {
         Item item = Stock.get(name);
         if (item == null) throw new IllegalArgumentException("Item not found");
         item.restock(amount);
+    }
+    //Second UserStory: Add a product that is not yet available, or restock an existing product
+    void addOrRestockItem(String name, double price, int amount, String description, String category){
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Name is required");
+        if (amount <= 0) throw new IllegalArgumentException("Amount must be positive");
+        if (Stock.containsKey(name)) {
+            Stock.get(name).restock(amount);
+        } else {
+            Stock.put(name, new Item(price, amount, description, category));
         }
     }
+
+}

@@ -14,20 +14,26 @@ public class VendorTest {
         assertEquals(0.0, vendor.getBalance());
     }
     @Test
-    void getItem() {
+    void getItemTest() {
         vendor.addMoney(2.00);
         assertTrue(vendor.select("Candy"));
         assertEquals(1, vendor.getStock("Candy"));
         assertEquals(0.75, vendor.getBalance());
     }
     @Test
-    void emptyVendor() {
+    void emptyVendorTest() {
         vendor.emptyInventory();
         assertEquals(0, vendor.getInventorySize());
     }
     @Test
-    void restockingItem(){
+    void restockingItemTest(){
         vendor.restockItems("Candy", 2);
         assertEquals(4, vendor.getStock("Candy"));
+    }
+    @Test
+    void addNewItemAndRestockTest() {
+        vendor.addOrRestockItem("Apple", 4.00, 7, "Healthy snack option", "Food");
+        assertEquals(7, vendor.getStock("Apple"));
+        assertEquals(3, vendor.getInventorySize());
     }
 }
