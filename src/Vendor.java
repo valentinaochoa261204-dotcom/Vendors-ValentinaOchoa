@@ -72,6 +72,13 @@ class Vending {
             return 0;
         }
     }
+    Item getItem(String name) {
+        if (Stock.containsKey(name)) {
+            return Stock.get(name);
+        }
+        return null;
+    }
+
     int getInventorySize() {
         return Stock.size();
     }
@@ -94,5 +101,13 @@ class Vending {
             Stock.put(name, new Item(price, amount, description, category));
         }
     }
-
+    boolean renameItem(String oldName, String newName) {
+        if(newName == null || newName.isBlank() || !Stock.containsKey(oldName) || Stock.containsKey(newName))
+                return false;
+        Stock.put(newName, Stock.remove(oldName));
+        return true;
+    }
+    boolean deleteItem(String name) {
+        return Stock.remove(name) != null;
+    }
 }

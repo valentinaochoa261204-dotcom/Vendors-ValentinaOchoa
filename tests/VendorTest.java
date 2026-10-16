@@ -36,4 +36,12 @@ public class VendorTest {
         assertEquals(7, vendor.getStock("Apple"));
         assertEquals(3, vendor.getInventorySize());
     }
+    @Test
+    void renameItemTest() {
+        assertTrue(vendor.renameItem("Candy", "Chocolate"));
+        assertNull(vendor.getItem("Candy"));
+        assertNotNull(vendor.getItem("Chocolate"));
+        assertEquals(2, vendor.getStock("Chocolate"));
+        assertFalse(vendor.renameItem("Chocolate", "Gum"));
+    }
 }
