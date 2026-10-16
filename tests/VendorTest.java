@@ -9,7 +9,9 @@ public class VendorTest {
     @Test
     void addMoneyTest() {
         vendor.addMoney(10.0);
-        assertEquals(10.0, vendor.getBalance() + 10.0);
+        assertEquals(10.0, vendor.getBalance());
+        vendor.resetBalance();
+        assertEquals(0.0, vendor.getBalance());
     }
     @Test
     void getItem() {

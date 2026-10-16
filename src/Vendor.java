@@ -29,11 +29,11 @@ class Vending {
      * @param amt how much money to add
      * */
     void addMoney (double amt) {
-        if(amt > 0) {
-            this.balance = this.balance + amt;
+        if (!Double.isFinite(amt) || amt <= 0) {
+            throw new IllegalArgumentException("Amount must be positive and greater than 0");
         }
+        this.balance += amt;
     }
-
     /** attempt to purchase named item.  Message returned if
      * the balance isn't sufficient to cover the item cost.
      *
